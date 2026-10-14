@@ -156,9 +156,12 @@ Judul dashboard: *"Sebaran Angka Lanjut Sekolah, Angka Lanjut Perguruan Tinggi d
 
 Layout (dari `BANYUWANGIFIX.twb`): baris atas = 4 kartu KPI (`Jumlah Kecamatan, Jumlah ALS, Jumlah ALPT, Jumlah RLS`), baris tengah = `Peta Sebaran` (kiri) + `Perkembangan Wilayah` (kanan), baris bawah = `Butterfly Chart` (kiri, lebar penuh setengah). Ada 2 dashboard action (klik-untuk-filter) dan tooltip bawaan.
 
-> **Catatan:** seluruh capture di sub-bab 7.1–7.4 di bawah adalah **rekonstruksi yang disesuaikan dengan tampilan Tableau Desktop**
-> (shelf Columns/Rows, Marks card, panel filter, palette default Tableau), direkonstruksi dari parsing langsung `BANYUWANGIFIX.twb`.
-> Grafik validasi statistik (§4–§6) dibuat dengan Python dan diberi label jelas.
+> **Catatan:** seluruh capture di sub-bab 7.0–7.4 di bawah adalah **rekonstruksi setia tampilan Tableau Desktop**
+> (diverifikasi dari dokumentasi resmi help.tableau.com: menu File–Help, toolbar + Show Me, Data pane Dimensions/Measures,
+> pil biru = discrete / hijau = continuous, kartu Filters + Marks (Color/Size/Label/Detail/Tooltip), legenda, dan tab sheet bawah;
+> dashboard memakai Dashboard pane Size/Sheets/Objects, kontainer tiled + legenda/filter floating),
+> direkonstruksi dari parsing langsung `BANYUWANGIFIX.twb` (nama sheet, field, filter, dan action yang terpakai persis sama).
+> Quick filter + tombol Reset berlabel "(Advance)" adalah usulan tambahan. Grafik validasi statistik (§4–§6) dibuat dengan Python.
 
 ### 7.0 Dashboard 1 — Tampilan Utuh (Sesuai Tableau)
 
