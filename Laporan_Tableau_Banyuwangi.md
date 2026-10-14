@@ -156,13 +156,23 @@ Judul dashboard: *"Sebaran Angka Lanjut Sekolah, Angka Lanjut Perguruan Tinggi d
 
 Layout (dari `BANYUWANGIFIX.twb`): baris atas = 4 kartu KPI (`Jumlah Kecamatan, Jumlah ALS, Jumlah ALPT, Jumlah RLS`), baris tengah = `Peta Sebaran` (kiri) + `Perkembangan Wilayah` (kanan), baris bawah = `Butterfly Chart` (kiri, lebar penuh setengah). Ada 2 dashboard action (klik-untuk-filter) dan tooltip bawaan.
 
+> **Catatan:** seluruh capture di sub-bab 7.1–7.4 di bawah adalah **rekonstruksi yang disesuaikan dengan tampilan Tableau Desktop**
+> (shelf Columns/Rows, Marks card, panel filter, palette default Tableau), direkonstruksi dari parsing langsung `BANYUWANGIFIX.twb`.
+> Grafik validasi statistik (§4–§6) dibuat dengan Python dan diberi label jelas.
+
+### 7.0 Dashboard 1 — Tampilan Utuh (Sesuai Tableau)
+
+![Dashboard 1 sesuai Tableau](img/twb_dashboard1.png)
+
 ### 7.1 Peta Sebaran (kiri tengah, worksheet `Peta Sebaran`)
 - **Isi:** poligon GeoJSON (`Geometry`) diwarnai `Kategori Cluster` (hijau/oranye/merah), tooltip ALS/ALPT/RLS + kecamatan.
 - **Kolom dipakai:** `Geometry, Kategori Cluster, ALS (%), ALPT (%), RLS (tahun), kecamatan`.
 - **Fungsi:** jawaban sekilas "kantong merah di mana?". Kekuatan utama dashboard.
 - **Capture replika advance (poligon asli, warna disamakan):**
 
-![Peta sebaran](img/img01_peta.png)
+![Peta sebaran sesuai Tableau](img/twb_ws_peta.png)
+
+> Versi analitik (Python, untuk perbandingan): `img/img01_peta.png`.
 
 ### 7.2 Butterfly Chart (kiri bawah, worksheet `Butterfly Chart`)
 - **Isi:** bar horizontal mirrored: kiri ALS, kanan ALPT, dipotong per Kecamatan dan `Kategori Cluster`.
@@ -170,15 +180,21 @@ Layout (dari `BANYUWANGIFIX.twb`): baris atas = 4 kartu KPI (`Jumlah Kecamatan, 
 - **Fungsi:** membandingkan dua indikator beda skala dalam satu pandangan; memudahkan deteksi tipe "Sedang" (kiri panjang, kanan pendek).
 - **Kelemahan existing:** tidak ada label angka di ujung bar, sumbu tidak diberi satuan (%), warna tidak konsisten dengan peta.
 
+![Butterfly sesuai Tableau](img/twb_ws_butterfly.png)
+
 ### 7.3 Perkembangan Wilayah (kanan tengah, worksheet `Perkembangan Wilayah`)
 - **Isi:** ranking/bar per `nama_wilayah/kecamatan` berbasis `ALS_persen` + warna `Cluster/Kategori Cluster`.
 - **Fungsi:** "desa mana teratas/terbawah". Perlu diganti nama menjadi **"Peringkat Wilayah"** karena datanya cross-section, bukan time-series (tidak ada tahun).
 - **Kolom:** `ALS_persen, Cluster, Kategori Cluster, kecamatan, nama_wilayah`.
 
+![Peringkat sesuai Tableau](img/twb_ws_peringkat.png)
+
 ### 7.4 Kartu KPI — Jumlah Kecamatan / Jumlah ALS / Jumlah ALPT / Jumlah RLS (baris atas)
 - **Isi:** masing-masing single-number (COUNT kecamatan = 21; AVG/SUM ALS, ALPT, RLS).
 - **Fungsi:** angka jangkar sebelum menyelam ke detail.
 - **Kelemahan existing:** (a) "Jumlah ALS" ambigu — apakah total, rata-rata, atau median? (b) tidak ada satuan (% / tahun / desa), (c) tidak ada pembanding cluster, (d) font/ukuran kartu tidak seragam (fixed-size 103–186 px tidak konsisten).
+
+![KPI sesuai Tableau](img/twb_ws_kpi.png)
 
 ### 7.5 Interaktivitas (2 Action Filter)
 - `Filter1` (on-select → filter seluruh Dashboard 1) + `Filter 1 (generated)` (klik Peta Sebaran → filter dashboard). Ditambah 3 action-group (`Kategori Cluster×Kecamatan`, `Kecamatan`, `Nama Wilayah`).
@@ -241,7 +257,7 @@ Mockup di bawah merangkum semua edit di atas dalam satu layar (dibuat dengan Pyt
 
 - A. File repo: `2Hasil_Clustering_Pendidikan_Banyuwangi.xlsx`, `banyuwangi_pendidikan_gabungan.geojson`, `BANYUWANGIFIX.twbx` (dalamnya `BANYUWANGIFIX.twb` + `.hyper`).
 - B. 7 worksheet + 1 dashboard (`Dashboard 1`) + 2 dashboard action — terverifikasi dari parsing XML `.twb`.
-- C. Capture laporan ini (folder `img/`): `img01_peta, img02_distribusi_cluster, img03_boxplot, img04_scatter, img05_butterfly, img06_heatmap, img07_elbow_silhouette, img08_radar, img09_perkembangan, img10_dashboard_advance`.
+- C. Capture laporan ini (folder `img/`): Tableau-style — `twb_dashboard1, twb_ws_kpi, twb_ws_peta, twb_ws_butterfly, twb_ws_peringkat`; analitik Python — `img01_peta, img02_distribusi_cluster, img03_boxplot, img04_scatter, img05_butterfly, img06_heatmap, img07_elbow_silhouette, img08_radar, img09_perkembangan, img10_dashboard_advance`. Versi Word: `Laporan_Tableau_Banyuwangi.docx`.
 - D. Definisi: ALS = % penduduk usia sekolah yang melanjutkan; ALPT = % yang lanjut ke PT; RLS = rata-rata tahun sekolah penduduk 25+ (proxy).
 
 *Disusun untuk keperluan UTS Praktek EVD. Mockup Advance pada laporan ini siap ditiru ulang di Tableau dalam ±30 menit mengikuti langkah §9.*
